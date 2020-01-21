@@ -37,6 +37,7 @@ td {
 #current_player {
   font-weight: bolder;
   font-size: 27px;
+  border-bottom: 1px solid black;
 }
 #words {
   font-weight: bolder;
@@ -52,7 +53,7 @@ button[class^="btn"] {
 }
 .playing_div {
   padding-left: 50px;
-  padding-top: 30px;
+  padding-top: 54px;
   margin-bottom: 100px;
 }
 .btn_skip {
