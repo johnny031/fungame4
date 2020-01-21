@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="main.css" />
+    <title>Fungame4</title>
+  </head>
+  <body>
+    <div class="container-fluid setting_div">
+      <h3>遊戲人數：</h3>
+      <input autofocus type="number" id="number" />
+      <button id="number_button" onclick="input_show()">確認</button>
+      <br /><br />
+      <h3 id="names_title" style="display:none">玩家名稱：</h3>
+      <div id="input_div"></div>
+      <button id="start_button" onclick="start()" style="display:none">
+        開始
+      </button>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-4 col-md-7 col-sm-9 board_div" style="display:none">
+          <div class="row">
+            <button id="return_to_zero" onclick="return_to_zero()">
+              歸零
+            </button>
+            <h4>接下來為 <span id="current_player"></span> 回合</h4>
+          </div>
+          <table id="score_board">
+            <tr>
+              <th>玩家</th>
+              <th>分數</th>
+            </tr>
+          </table>
+
+          <button id="round_start_button" onclick="new_round()">
+            開始
+          </button>
+        </div>
+        <div
+          class="col-lg-8 col-md-5 col-sm-3 playing_div"
+          style="display:none"
+        >
+          <hr />
+          <h4>剩餘時間：<span id="time">60</span></h4>
+          <h4>
+            題目：
+            <h4 id="words"></h4>
+          </h4>
+          <div id="button_div"></div>
+          <button class="btn_skip">跳過</button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="main.js"></script>
+  <script src="words.js"></script>
+</html>

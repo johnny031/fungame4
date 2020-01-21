@@ -1,0 +1,85 @@
+body {
+  padding: 17px;
+}
+h3,
+h4,
+button,
+div,
+span {
+  font-family: Microsoft JhengHei;
+}
+table {
+  width: 100%;
+}
+table,
+th,
+td {
+  border: 2px solid black;
+  border-collapse: collapse;
+}
+th,
+td {
+  text-align: center;
+}
+th {
+  font-size: 30px;
+}
+td {
+  font-size: 40px;
+}
+#return_to_zero {
+  margin: 0px 10px auto 15px;
+}
+#round_start_button {
+  margin-top: 10px;
+  float: right;
+}
+#current_player {
+  font-weight: bolder;
+  font-size: 27px;
+}
+#words {
+  font-weight: bolder;
+  font-size: 50px;
+  margin-bottom: 15px;
+}
+#time {
+  font-size: 30px;
+}
+button[class^="btn"] {
+  margin: 5px;
+  font-size: 20px;
+}
+.playing_div {
+  padding-left: 50px;
+  padding-top: 30px;
+  margin-bottom: 100px;
+}
+.btn_skip {
+  color: rgb(189, 0, 0);
+}
+hr {
+  width: 100%;
+  margin-top: 1.6em;
+  margin-bottom: 1.6em;
+  display: none;
+}
+/*  Extra small (.col-) < 576px
+    sm ≥ 576px 
+    md ≥ 768px
+    Lg ≥ 992px
+    xl ≥ 1200px */
+@media only screen and (max-width: 992px) {
+  .playing_div {
+    text-align: center;
+    padding-left: 0;
+  }
+}
+@media only screen and (max-width: 576px) {
+  hr {
+    display: block;
+  }
+  .playing_div {
+    padding-top: 0;
+  }
+}
