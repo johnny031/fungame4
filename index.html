@@ -32,7 +32,9 @@
             <button id="return_to_zero" onclick="return_to_zero()">
               歸零
             </button>
-            <h4>接下來為 <span id="current_player"></span> 回合</h4>
+            <h4 id="next_round_h4">
+              接下來：<span id="current_player"></span>
+            </h4>
           </div>
           <table id="score_board">
             <tr>
@@ -50,11 +52,11 @@
           style="display:none"
         >
           <hr />
-          <h4>剩餘時間：<span id="time">60</span></h4>
-          <h4>
+          <h5>剩餘時間：<span id="time">60</span></h5>
+          <h5>
             題目：
             <h4 id="words"></h4>
-          </h4>
+          </h5>
           <div id="button_div"></div>
           <button class="btn_skip">跳過</button>
         </div>
