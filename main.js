@@ -101,11 +101,13 @@ document.addEventListener("click", event => {
     $("#words").html(words[current_words]);
     if (!isNaN(element.className.slice(-1))) {
       //if the class name is end with a number
-      var score_to_plus = parseInt(
-        $(".score" + element.className.slice(-1)).html()
-      );
+      var score_to_plus = $(".score" + element.className.slice(-1)).html();
       score_to_plus++;
       $(".score" + element.className.slice(-1)).html(score_to_plus);
+
+      var score_to_host = $(".score" + current_player).html();
+      score_to_host++;
+      $(".score" + current_player).html(score_to_host);
     }
   }
 });
