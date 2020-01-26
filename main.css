@@ -36,7 +36,7 @@ td {
 #next_round_h4 {
   font-size: 25px;
   margin-left: 15px;
-  margin-bottom: 13px;
+  margin-bottom: 7px;
 }
 #round_start_button {
   margin-top: 20px;
@@ -65,7 +65,7 @@ button[class^="btn"] {
   border: none;
   background: none;
   padding: 0;
-  left: 15%;
+  left: 13%;
   top: 25%;
   font-size: 12px;
 }
