@@ -1,4 +1,5 @@
-var dict = [];
+var names = [];
+var dict = {};
 var playing = false;
 var current_player = 0;
 var current_words = -1;
@@ -48,12 +49,12 @@ function start() {
   $(".board_div").show();
   shuffle(words);
   $('input[name^="n"]').each(function() {
-    dict.push($(this).val());
+    names.push($(this).val());
   });
   for (let i = 0; i < $("#number").val(); i++) {
     var tr = document.createElement("tr");
     var td_name = document.createElement("td");
-    td_name.innerHTML = dict[i];
+    td_name.innerHTML = names[i];
     td_name.className = "name" + i;
     var td_btn = document.createElement("td");
     var btn_minus = document.createElement("button");
@@ -84,6 +85,9 @@ function start() {
 }
 
 function new_round() {
+  dict = {};
+  $("#checking_list").html("");
+  $("#check").prop("disabled", true);
   playing = true;
   $("#round_start_button").prop("disabled", true);
   $(".playing_div").show();
@@ -110,6 +114,12 @@ function clear_round() {
     current_player = 0;
   }
   $("#current_player").html($(".name" + current_player).html());
+  Object.entries(dict).forEach(([key, value]) => {
+    var li = document.createElement("li");
+    li.innerHTML = key + " - " + value;
+    $("#checking_list").append(li);
+  });
+  $("#check").prop("disabled", false);
 }
 
 document.addEventListener("click", event => {
@@ -123,10 +133,11 @@ document.addEventListener("click", event => {
     adjust_plus++;
     $(".score" + element.className.slice(-1)).html(adjust_plus);
   } else if (playing == true && element.className.slice(0, 3) === "btn") {
-    current_words++;
-    $("#words").html(words[current_words]);
     if (!isNaN(element.className.slice(-1))) {
       //if the class name is end with a number
+      dict[words[current_words]] = $(
+        ".name" + element.className.slice(-1)
+      ).html();
       var score_to_plus = $(".score" + element.className.slice(-1)).html();
       score_to_plus++;
       $(".score" + element.className.slice(-1)).html(score_to_plus);
@@ -135,6 +146,8 @@ document.addEventListener("click", event => {
       score_to_host++;
       $(".score" + current_player).html(score_to_host);
     }
+    current_words++;
+    $("#words").html(words[current_words]);
   }
 });
 
@@ -160,6 +173,7 @@ $(".btn_skip").on("click", function() {
   var score_to_deduct = $(".score" + current_player).html();
   score_to_deduct--;
   $(".score" + current_player).html(score_to_deduct);
+  dict[words[current_words]] = "跳過";
 });
 
 function return_to_zero() {
@@ -170,4 +184,8 @@ function return_to_zero() {
 
 function adjust() {
   $(".minus, .plus").toggle();
+}
+
+function check() {
+  $("#checking_list").toggle();
 }

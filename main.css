@@ -30,7 +30,8 @@ td {
   font-size: 25px;
 }
 #return_to_zero,
-#adjust {
+#adjust,
+#check {
   margin: 0 0 13px 15px;
 }
 #next_round_h4 {
@@ -65,7 +66,7 @@ button[class^="btn"] {
   border: none;
   background: none;
   padding: 0;
-  left: 11%;
+  left: 10.3%;
   top: 25%;
   font-size: 12px;
 }
@@ -106,7 +107,7 @@ hr {
     md ≥ 768px
     Lg ≥ 992px
     xl ≥ 1200px */
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 1200px) {
   .playing_div {
     text-align: center;
     padding-left: 0;
