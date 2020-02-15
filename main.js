@@ -13,8 +13,8 @@ function shuffle(a) {
 
 function input_show() {
   var numbers = $("#number").val();
-  if (numbers < 3 || numbers > 15) {
-    alert("遊戲人數需介於3至15人之間");
+  if (numbers < 3 || numbers > 10) {
+    alert("遊戲人數需介於3至10人之間");
     return false;
   } else {
     $("#number_button").prop("disabled", true);
