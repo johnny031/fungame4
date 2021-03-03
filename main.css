@@ -43,6 +43,9 @@ td {
   border: none;
   background: none;
 }
+div[class^="d"] {
+  margin-top: 8px;
+}
 #return_to_zero,
 #adjust,
 #check {
