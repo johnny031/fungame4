@@ -1,8 +1,11 @@
-var names = [];
-var dict = {};
-var playing = false;
-var current_player = 0;
-var current_words = -1;
+let count = 0;
+let names = [];
+let dict = {};
+let playing = false;
+let current_player = 0;
+let current_words = -1;
+let player_number = 1;
+
 function shuffle(a) {
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -11,47 +14,45 @@ function shuffle(a) {
   return a;
 }
 
-function input_show() {
-  var numbers = $("#number").val();
-  if (numbers < 3 || numbers > 10) {
-    alert("遊戲人數需介於3至10人之間");
-    return false;
-  } else {
-    $("#number_button").prop("disabled", true);
-  }
-  $("#names_title").show();
-  $("#start_button").show();
-  for (let i = 0; i < numbers; i++) {
-    var input = document.createElement("input");
-    input.type = "text";
-    input.name = "n";
-    input.className = i;
-    input.style.display = "block";
-    input.style.margin = "10px";
-    input.style.padding = "5px";
-    $("#input_div").append(input);
-  }
+$("#add_player").on("click", function() {
+    $("#input_div").append("<div class='d" + player_number + "'><input type='text' name='n'><button class='icon_button b" + player_number + "' onclick='delete_button(" + player_number + ")'><i class='fas fa-times-circle'></i></button><br></div>");
+    $(".d"+player_number).hide().show(250);
+    player_number++;
+});
+function delete_button(player_number){
+    $(".d" + player_number).hide(250);
+    setTimeout(() => {
+      $(".d" + player_number).remove();
+    }, 250);
 }
 
 function start() {
-  var empty = false;
+  let invalid = false;
   $('#input_div input[type="text"]').each(function() {
     if ($(this).val() === "") {
       alert("玩家名稱請勿空白");
-      empty = true;
+      invalid = true;
       return false;
     }
   });
-  if (empty == true) {
+  if (invalid) {
     return false;
   }
-  $(".setting_div").hide();
-  $(".board_div").show();
-  shuffle(words);
+  $('input[name^="n"]').each(function() {
+    count++;
+  });
+  if(count < 3 || count  > 10) {
+    alert("遊戲人數需介於3至10人之間");
+    count = 0;
+    return false;
+  }
   $('input[name^="n"]').each(function() {
     names.push($(this).val());
   });
-  for (let i = 0; i < $("#number").val(); i++) {
+  $(".setting_div").hide();
+  $(".board_div").show();
+  shuffle(words);
+  for (let i = 0; i < names.length; i++) {
     var tr = document.createElement("tr");
     var td_name = document.createElement("td");
     td_name.innerHTML = names[i];
@@ -93,7 +94,7 @@ function new_round() {
   $(".playing_div").show();
   current_words++;
   $("#words").html(words[current_words]);
-  for (let i = 0; i < $("#number").val(); i++) {
+  for (let i = 0; i < names.length; i++) {
     if (i !== current_player) {
       var btn = document.createElement("button");
       btn.innerHTML = $(".name" + i).html();
@@ -101,7 +102,7 @@ function new_round() {
       $("#button_div").append(btn);
     }
   }
-  startTimer(59);
+  startTimer(1);
 }
 
 function clear_round() {
@@ -110,7 +111,7 @@ function clear_round() {
   $(".playing_div").hide();
   $("#button_div").html("");
   current_player++;
-  if (current_player == $("#number").val()) {
+  if (current_player == names.length) {
     current_player = 0;
   }
   $("#current_player").html($(".name" + current_player).html());

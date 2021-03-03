@@ -29,6 +29,20 @@ th {
 td {
   font-size: 25px;
 }
+#add_player {
+  border: none;
+  background: none;
+  padding: 5px 0;
+  color: rgb(134, 134, 134);
+}
+#add_player:focus,
+.icon_button:focus {
+  outline-width: 0;
+}
+.icon_button {
+  border: none;
+  background: none;
+}
 #return_to_zero,
 #adjust,
 #check {

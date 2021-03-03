@@ -21,13 +21,16 @@
   </head>
   <body>
     <div class="container-fluid setting_div">
-      <h3>遊戲人數：</h3>
+      <!-- <h3>遊戲人數：</h3>
       <input autofocus type="number" id="number" />
       <button id="number_button" onclick="input_show()">確認</button>
-      <br /><br />
-      <h3 id="names_title" style="display:none">玩家名稱：</h3>
-      <div id="input_div"></div>
-      <button id="start_button" onclick="start()" style="display:none">
+      <br /><br /> -->
+      <h3 id="names_title">玩家名稱：</h3>
+      <div id="input_div">
+        <input type="text" name="n"><br>
+      </div>
+      <button id="add_player">新增玩家</button><br>
+      <button id="start_button" onclick="start()">
         開始
       </button>
     </div>
