@@ -102,7 +102,7 @@ function new_round() {
       $("#button_div").append(btn);
     }
   }
-  startTimer(1);
+  startTimer(59);
 }
 
 function clear_round() {
