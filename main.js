@@ -159,7 +159,6 @@ document.addEventListener("click", event => {
       score_to_host++;
       $(".score" + current_player).html(score_to_host);
       names[current_player][1]++
-
     }
     current_words++;
     $("#words").html(words[current_words]);
@@ -183,7 +182,7 @@ function startTimer(duration) {
     }
   }, 1000);
 }
-$("#btn_skip").on("click", function() {
+$(".btn_skip").on("click", function() {
   var score_to_deduct = $(".score" + current_player).html();
   score_to_deduct--;
   $(".score" + current_player).html(score_to_deduct);
@@ -192,7 +191,7 @@ $("#btn_skip").on("click", function() {
   dict[words[current_words]] = "跳過";
 });
 
-$("#btn_quit").on("click", function() {
+$(".quit_btn").on("click", function() {
   if(!confirm("確定放棄此輪？")) {
     return false
   }

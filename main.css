@@ -174,18 +174,17 @@ button[class^="btn"] {
   padding-top: 15px;
   margin-bottom: 60px;
 }
-#btn_skip,
-#btn_quit {
+div .btn_skip,
+div .quit_btn {
   all: unset;
   font-weight: bold;
   padding: 4px 7px;
   border-radius: 3px;
   color: rgb(255, 255, 255);
   background-color: rgb(189, 0, 0);
-  /* margin: 0 auto; */
 }
 
-#btn_quit {
+div .quit_btn {
   background-color: rgb(69, 3, 3);
 }
 
