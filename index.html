@@ -21,15 +21,13 @@
   </head>
   <body>
     <div class="container-fluid setting_div">
-      <!-- <h3>遊戲人數：</h3>
-      <input autofocus type="number" id="number" />
-      <button id="number_button" onclick="input_show()">確認</button>
-      <br /><br /> -->
-      <h3 id="names_title">玩家名稱：</h3>
-      <div id="input_div">
-        <input type="text" name="n"><br>
+      <h3 class="names_title">玩家名稱：</h3>
+      <div class="input_section">
+        <div class="input_div">
+          <input type="text" name="n" class="0"><br>
+        </div>
+        <button class="add_player" onclick="add_player('input_div')">新增玩家</button><br>
       </div>
-      <button id="add_player">新增玩家</button><br>
       <button id="start_button" onclick="start()">
         開始
       </button>
@@ -37,21 +35,24 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-5 col-md-7 col-sm-9 board_div" style="display:none">
-          <div class="row" style="margin: 12px -15px">
-            <button id="return_to_zero" onclick="return_to_zero()">
-              歸零
+          <div class="row">
+            <button id="adjust_players_btn">
+              玩家
             </button>
             <button id="adjust" onclick="adjust()">調整</button>
             <button id="check" onclick="check()" disabled>檢查</button>
-            <h4 id="next_round_h4">
-              接下來：<span id="current_player"></span>
-            </h4>
           </div>
-          <table id="score_board">
-            <tr>
+          <h4 id="next_round_h4">
+            接下來：<span id="current_player"></span>
+          </h4>
+          <table>
+            <thead>
+              <tr>
               <th>玩家</th>
               <th>分數</th>
             </tr>
+            </thead>
+            <tbody id="score_board"></tbody>
           </table>
 
           <button id="round_start_button" onclick="new_round()">
@@ -69,9 +70,17 @@
             <h4 id="words"></h4>
           </h5>
           <div id="button_div"></div>
-          <button class="btn_skip">跳過</button>
+          <button id="btn_skip">跳過</button>
+          <br> <br>
+          <button id="btn_quit">放棄</button>
         </div>
       </div>
+    </div>
+    <div class="container-fluid adjust_players_div">
+      <h3>玩家名稱：</h3>
+      <div class="adjust_players_input_div"></div>
+      <button class="add_player" onclick="add_player('adjust_players_input_div')">新增玩家</button><br>
+      <button class="confirm_adjust_players">確定</button>
     </div>
     <div class="container-fluid checking_div">
       <ol id="checking_list" style="display:none"></ol>

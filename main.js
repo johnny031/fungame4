@@ -5,6 +5,7 @@ let playing = false;
 let current_player = 0;
 let current_words = -1;
 let player_number = 1;
+let interval;
 
 function shuffle(a) {
   for (let i = a.length - 1; i > 0; i--) {
@@ -14,11 +15,20 @@ function shuffle(a) {
   return a;
 }
 
-$("#add_player").on("click", function() {
-    $("#input_div").append("<div class='d" + player_number + "'><input type='text' name='n'><button class='icon_button b" + player_number + "' onclick='delete_button(" + player_number + ")'><i class='fas fa-times-circle'></i></button><br></div>");
-    $(".d"+player_number).hide().show(250);
-    player_number++;
-});
+function add_player(area) {
+  $(`.${area}`).append(`
+  <div class="d${player_number}">
+    <input type="text" name="n" class="${0}">
+    <button class="icon_button b${player_number}" onclick="delete_button(${player_number})">
+    <i class="fas fa-times-circle"></i>
+    </button>
+    <br>
+  </div>
+  `);
+  $(".d" + player_number).hide().show(250);
+  player_number++;
+}
+
 function delete_button(player_number){
     $(".d" + player_number).hide(250);
     setTimeout(() => {
@@ -28,7 +38,7 @@ function delete_button(player_number){
 
 function start() {
   let invalid = false;
-  $('#input_div input[type="text"]').each(function() {
+  $('input[type="text"]').each(function() {
     if ($(this).val() === "") {
       alert("玩家名稱請勿空白");
       invalid = true;
@@ -46,49 +56,46 @@ function start() {
     count = 0;
     return false;
   }
-  $('input[name^="n"]').each(function() {
-    names.push($(this).val());
-  });
-  $(".setting_div").hide();
+  render_players_names ()
+  $(".setting_div").remove();
   $(".board_div").show();
   shuffle(words);
-  for (let i = 0; i < names.length; i++) {
-    var tr = document.createElement("tr");
-    var td_name = document.createElement("td");
-    td_name.innerHTML = names[i];
-    td_name.className = "name" + i;
-    var td_btn = document.createElement("td");
-    var btn_minus = document.createElement("button");
-    var icon_minus = document.createElement("i");
-    var div_score = document.createElement("div");
-    var btn_plus = document.createElement("button");
-    var icon_plus = document.createElement("i");
-
-    td_btn.style.position = "relative";
-    btn_minus.className = "minus";
-    icon_minus.className = "icon_minus fas fa-minus " + i;
-    div_score.innerHTML = 0;
-    div_score.className = "score" + i;
-    btn_plus.className = "plus";
-    icon_plus.className = "icon_plus fas fa-plus " + i;
-
-    btn_minus.append(icon_minus);
-    btn_plus.append(icon_plus);
-    td_btn.append(btn_minus);
-    td_btn.append(div_score);
-    td_btn.append(btn_plus);
-
-    tr.append(td_name);
-    tr.append(td_btn);
-    $("#score_board").append(tr);
-  }
+  render_score_board()
   $("#current_player").html($(".name0").html());
+}
+
+function render_players_names () {
+  names = []
+  $('input[name^="n"]').each(function() {
+    names.push([$(this).val(), this.className]);
+  });
+}
+
+function render_score_board() {
+  $("#score_board").html("")
+  for (let i = 0; i < names.length; i++) {
+    $("#score_board").append(`
+    <tr>
+      <td class="name${i}">${names[i][0]}</td>
+      <td style="position: relative;">
+        <button class="minus">
+          <i class="icon_minus fas fa-minus ${i}"></i>
+        </button>
+        <div class="score${i}">${names[i][1]}</div>
+        <button class="plus">
+          <i class="icon_plus fas fa-plus ${i}"></i>
+        </button>
+      </td>
+    </tr>
+    `);
+  }
 }
 
 function new_round() {
   dict = {};
   $("#checking_list").html("");
   $("#check").prop("disabled", true);
+  $("#adjust_players_btn").prop("disabled", true);
   playing = true;
   $("#round_start_button").prop("disabled", true);
   $(".playing_div").show();
@@ -111,41 +118,48 @@ function clear_round() {
   $(".playing_div").hide();
   $("#button_div").html("");
   current_player++;
-  if (current_player == names.length) {
+  if (current_player >= names.length) {
     current_player = 0;
   }
-  $("#current_player").html($(".name" + current_player).html());
+  $("#current_player").html(names[current_player][0]);
   Object.entries(dict).forEach(([key, value]) => {
     var li = document.createElement("li");
     li.innerHTML = key + " - " + value;
     $("#checking_list").append(li);
   });
   $("#check").prop("disabled", false);
+  $("#adjust_players_btn").prop("disabled", false);
 }
 
 document.addEventListener("click", event => {
   const element = event.target;
+  let index = element.className.slice(-1)
   if (element.className.slice(0, 10) === "icon_minus") {
-    var adjust_minus = $(".score" + element.className.slice(-1)).html();
+    let adjust_minus = $(".score" + index).html();
     adjust_minus--;
-    $(".score" + element.className.slice(-1)).html(adjust_minus);
+    $(".score" + index).html(adjust_minus);
+    names[index][1]--
   } else if (element.className.slice(0, 9) === "icon_plus") {
-    var adjust_plus = $(".score" + element.className.slice(-1)).html();
+    let adjust_plus = $(".score" + index).html();
     adjust_plus++;
-    $(".score" + element.className.slice(-1)).html(adjust_plus);
+    $(".score" + index).html(adjust_plus);
+    names[index][1]++
   } else if (playing == true && element.className.slice(0, 3) === "btn") {
-    if (!isNaN(element.className.slice(-1))) {
+    if (!isNaN(index)) {
       //if the class name is end with a number
       dict[words[current_words]] = $(
-        ".name" + element.className.slice(-1)
+        ".name" + index
       ).html();
-      var score_to_plus = $(".score" + element.className.slice(-1)).html();
+      var score_to_plus = $(".score" + index).html();
       score_to_plus++;
-      $(".score" + element.className.slice(-1)).html(score_to_plus);
+      $(".score" + index).html(score_to_plus);
+      names[index][1]++
 
       var score_to_host = $(".score" + current_player).html();
       score_to_host++;
       $(".score" + current_player).html(score_to_host);
+      names[current_player][1]++
+
     }
     current_words++;
     $("#words").html(words[current_words]);
@@ -155,7 +169,8 @@ document.addEventListener("click", event => {
 function startTimer(duration) {
   var timer = duration,
     seconds;
-  var interval = setInterval(function() {
+
+  interval = setInterval(function() {
     seconds = parseInt(timer % 60, 10);
 
     seconds = seconds < 10 ? "0" + seconds : seconds;
@@ -164,23 +179,80 @@ function startTimer(duration) {
 
     if (--timer < -1) {
       alert("時間到！");
-      clearInterval(interval);
-      clear_round();
-      $("#time").text("60");
+      enter_next_round()
     }
   }, 1000);
 }
-$(".btn_skip").on("click", function() {
+$("#btn_skip").on("click", function() {
   var score_to_deduct = $(".score" + current_player).html();
   score_to_deduct--;
   $(".score" + current_player).html(score_to_deduct);
+  names[current_player][1]--
+  
   dict[words[current_words]] = "跳過";
 });
 
-function return_to_zero() {
-  $('div[class^="score"]').each(function() {
-    $(this).html(0);
+$("#btn_quit").on("click", function() {
+  if(!confirm("確定放棄此輪？")) {
+    return false
+  }
+  enter_next_round()
+});
+
+$("#adjust_players_btn").on("click", function() {
+  $(this).prop("disabled", true);
+  for (let i = 0; i < names.length; i++) {
+    $(".adjust_players_input_div").append(`
+    <div class="d${i}">
+      <input type="text" name="n" value="${names[i][0]}" class="${names[i][1]}">
+      <button class="icon_button b${i}" onclick="delete_button(${i})">
+      <i class="fas fa-times-circle"></i>
+      </button>
+      <br>
+    </div>
+    `)
+  }
+  $(".adjust_players_div").fadeIn()
+});
+
+$(".confirm_adjust_players").on("click", function() {
+  let invalid = false;
+  count = 0
+  $('input[type="text"]').each(function() {
+    if ($(this).val() === "") {
+      alert("玩家名稱請勿空白");
+      invalid = true;
+      return false;
+    }
   });
+  if (invalid) {
+    return false;
+  }
+  $('input[name^="n"]').each(function() {
+    count++;
+  });
+  if(count < 3 || count  > 10) {
+    alert("遊戲人數需介於3至10人之間");
+    count = 0;
+    return false;
+  }
+  render_players_names()
+  render_score_board()
+  $(".adjust_players_div").fadeOut()
+  setTimeout(() => {
+    $(".adjust_players_input_div").html("")
+  }, 400);
+  if (current_player >= names.length) {
+    current_player = 0
+  }
+  $("#current_player").html(names[current_player][0])
+  $("#adjust_players_btn").prop("disabled", false);
+});
+
+function enter_next_round() {
+  clearInterval(interval);
+  clear_round();
+  $("#time").text("60");
 }
 
 function adjust() {

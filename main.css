@@ -1,5 +1,7 @@
 body {
   padding: 17px;
+  margin-bottom: 60px;
+  background-color: rgb(255, 253, 253);
 }
 h3,
 h4,
@@ -9,13 +11,24 @@ div,
 span {
   font-family: Microsoft JhengHei;
 }
+h3 {
+  font-weight: bold;
+}
+h3, 
+h4,
+h5,
+.fas, 
+table,
+.checking_div {
+  color: rgb(123, 6, 6);
+}
 table {
   width: 100%;
 }
 table,
 th,
 td {
-  border: 2px solid black;
+  border-bottom: 1px solid rgb(204, 204, 204);
   border-collapse: collapse;
 }
 th,
@@ -23,19 +36,34 @@ td {
   text-align: center;
 }
 th {
-  background-color: rgb(226, 226, 226);
+  background-color: rgb(181, 10, 10);
+  color: white;
   font-size: 15px;
 }
 td {
   font-size: 25px;
 }
-#add_player {
+tr:last-child {
+  border-bottom: 2px solid rgb(181, 10, 10);
+}
+.add_player {
   border: none;
   background: none;
-  padding: 5px 0;
-  color: rgb(134, 134, 134);
+  padding: 5px 0 10px 0;
+  color: rgb(188, 116, 116);
 }
-#add_player:focus,
+.confirm_adjust_players, 
+#start_button {
+  font-size: 10px;
+  background: rgb(123, 6, 6);
+  border: none;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 2px 2px 2px rgb(182, 182, 182);
+  padding: 5px 15px 6px 15px;
+  font-weight: bold;
+}
+.add_player:focus,
 .icon_button:focus {
   outline-width: 0;
 }
@@ -46,28 +74,61 @@ td {
 div[class^="d"] {
   margin-top: 8px;
 }
-#return_to_zero,
+#adjust_players_btn,
 #adjust,
-#check {
+#check,
+button[class^="btn"] {
+  all: unset;
+  padding: 2px 5px;
   margin: 0 0 13px 15px;
+  background: none;
+  border-radius: 10px;
+  border: 1px solid rgb(152, 7, 7);
+  color: rgb(152, 7, 7);
+  box-shadow: 0 1px 1px rgb(152, 7, 7);
+}
+#adjust_players_btn:disabled,
+#adjust:disabled,
+#check:disabled {
+  text-decoration: none;
+  color: rgb(183, 183, 183);
+  box-shadow: none;
+  border: 1px solid rgb(183, 183, 183);
 }
 #next_round_h4 {
-  font-size: 25px;
-  margin-left: 15px;
-  margin-bottom: 7px;
+  font-size: 18px;
+  margin-bottom: 13px;
 }
 #round_start_button {
   margin-top: 20px;
   float: right;
+  background: rgb(195, 12, 12);
+  color: white;
+  border-radius: 50%;
+  border: none;
+  width: 60px;
+  height: 60px;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgb(70, 70, 70);
 }
+#round_start_button:disabled {
+  background: none;
+  color: rgb(183, 183, 183);
+  box-shadow:none;
+  font-weight: normal;
+  border: 1px solid rgb(183, 183, 183);
+}
+
 #current_player {
   font-weight: bolder;
   border-bottom: 1px solid black;
 }
 #words {
   font-weight: bolder;
-  font-size: 50px;
+  font-size: 55px;
+  color: rgb(82, 21, 21);
   margin-bottom: 15px;
+  text-shadow: 1px 1px 1px rgb(208, 202, 202), 2px 2px 2px rgb(110, 91, 91);
 }
 #time {
   font-size: 30px;
@@ -109,8 +170,18 @@ button[class^="btn"] {
   padding-top: 15px;
   margin-bottom: 60px;
 }
-.btn_skip {
-  color: rgb(189, 0, 0);
+#btn_skip,
+#btn_quit {
+  all: unset;
+  font-weight: bold;
+  padding: 4px 7px;
+  border-radius: 3px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(189, 0, 0);
+}
+
+#btn_quit {
+  background-color: rgb(69, 3, 3);
 }
 
 hr {
@@ -118,6 +189,27 @@ hr {
   margin-top: 1.6em;
   margin-bottom: 1.6em;
   display: none;
+}
+
+input{
+  background-color: rgb(236, 228, 228);
+  border: 1px solid rgb(150, 90, 90);
+  color: rgb(119, 40, 40);
+  border-radius: 3px;
+}
+
+#button_div {
+  margin-bottom: 15px;
+}
+
+.adjust_players_div {
+  background-color: rgb(236, 228, 228);
+  /* border: 1px solid rgb(130, 130, 130); */
+  box-shadow: 2px 2px 4px rgb(150, 90, 90);
+  display: none;
+  margin-top: 30px;
+  padding: 15px;
+  border-radius: 8px;
 }
 /*  Extra small (.col-) < 576px
     sm ≥ 576px 
