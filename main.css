@@ -207,9 +207,10 @@ input{
   /* border: 1px solid rgb(130, 130, 130); */
   box-shadow: 2px 2px 4px rgb(150, 90, 90);
   display: none;
-  margin-top: 30px;
+  margin: 30px auto auto 0;
   padding: 15px;
   border-radius: 8px;
+  /* max-width: 576px; */
 }
 /*  Extra small (.col-) < 576px
     sm ≥ 576px 
